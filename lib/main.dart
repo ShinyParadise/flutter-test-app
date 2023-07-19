@@ -1,25 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Test',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Test app'),
-      routes: {
-        '/second': (context) => const SecondScreen(title: 'Second screen')
-      },
-    );
+    return const CupertinoApp(
+        title: 'Test',
+        theme: CupertinoThemeData(brightness: Brightness.light),
+        home: MyHomePage(title: 'Test app'));
   }
 }
 
@@ -30,21 +23,24 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        transitionBetweenRoutes: false,
+        middle: Text(title),
       ),
-      body: Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               'This is first screen',
             ),
-            ElevatedButton(
+            CupertinoButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/second');
+                  Navigator.push(context,
+                      MaterialWithModalsPageRoute(builder: (context) {
+                    return const SecondScreen(title: 'Second screen');
+                  }));
                 },
                 child: const Text('Go to second screen'))
           ],
@@ -54,68 +50,83 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class SecondScreen extends StatelessWidget {
+class SecondScreen extends StatefulWidget {
   const SecondScreen({super.key, required this.title});
 
   final String title;
 
   @override
+  State<StatefulWidget> createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        transitionBetweenRoutes: false,
+        middle: Text(widget.title),
       ),
-      body: Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text('This is second screen'),
-            ElevatedButton(
+            CupertinoButton(
               onPressed: () {
-                showModalBottomSheet<void>(
+                showCupertinoModalBottomSheet(
                     context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return FractionallySizedBox(
-                          alignment: Alignment.topCenter,
-                          heightFactor: 0.9,
-                          child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Back',
-                                              style: TextStyle(fontSize: 20))),
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Done',
-                                              style: TextStyle(fontSize: 20)))
-                                    ],
-                                  ),
-                                  const Center(
-                                    child: Text('This is modal sheet'),
-                                  )
-                                ],
-                              )));
-                    });
+                    expand: true,
+                    builder: (context) => const ModalFit());
               },
-              child: const Text('Show bottom sheet'),
+              child: const Text('Show modal screen'),
             )
           ],
         ),
       ),
     );
+  }
+}
+
+class ModalFit extends StatelessWidget {
+  const ModalFit({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+        child: SafeArea(
+      top: false,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            title: const Text('Edit'),
+            leading: const Icon(Icons.edit),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          ListTile(
+            title: const Text('Copy'),
+            leading: const Icon(Icons.content_copy),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          ListTile(
+            title: const Text('Cut'),
+            leading: const Icon(Icons.content_cut),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          ListTile(
+            title: const Text('Move'),
+            leading: const Icon(Icons.folder_open),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          ListTile(
+            title: const Text('Delete'),
+            leading: const Icon(Icons.delete),
+            onTap: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    ));
   }
 }
