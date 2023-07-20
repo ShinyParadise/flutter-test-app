@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/web_view.dart';
 
 class ModalView extends StatelessWidget {
   const ModalView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return const Material(
         child: SafeArea(
       top: false,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [],
+        children: [FlutterWebView(url: 'https://flutter.dev')],
       ),
     ));
   }
