@@ -30,7 +30,8 @@ class _SecondScreenState extends State<SecondScreen> {
               onPressed: () {
                 showCupertinoModalBottomSheet(
                     context: context,
-                    expand: true,
+                    isDismissible: true,
+                    enableDrag: false,
                     builder: (context) => const ModalView());
               },
               child: const Text('Show modal screen'),
