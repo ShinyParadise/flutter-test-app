@@ -26,7 +26,6 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        transitionBetweenRoutes: false,
         middle: Text(title),
       ),
       child: Center(
@@ -39,7 +38,7 @@ class MyHomePage extends StatelessWidget {
             CupertinoButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialWithModalsPageRoute(builder: (context) {
+                      CupertinoPageRoute(builder: (context) {
                     return const SecondScreen(title: 'Second screen');
                   }));
                 },

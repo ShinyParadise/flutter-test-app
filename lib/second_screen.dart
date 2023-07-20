@@ -17,26 +17,28 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        transitionBetweenRoutes: false,
         middle: Text(widget.title),
       ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text('This is second screen'),
-            CupertinoButton(
-              onPressed: () {
-                showCupertinoModalBottomSheet(
-                    context: context,
-                    isDismissible: true,
-                    enableDrag: false,
-                    builder: (context) => const ModalView());
-              },
-              child: const Text('Show modal screen'),
-            )
-          ],
+      child: Container(
+        color: const Color.fromARGB(255, 241, 245, 39),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const Text('This is second screen'),
+              CupertinoButton(
+                onPressed: () {
+                  showCupertinoModalBottomSheet(
+                      context: context,
+                      isDismissible: true,
+                      enableDrag: false,
+                      builder: (context) => const ModalView());
+                },
+                child: const Text('Show modal screen'),
+              )
+            ],
+          ),
         ),
       ),
     );
