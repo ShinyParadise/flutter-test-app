@@ -24,7 +24,7 @@ class _FlutterWebViewState extends State<FlutterWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: MediaQuery.of(context).size.height * 0.95,
         child: WebViewWidget(controller: controller));
   }
