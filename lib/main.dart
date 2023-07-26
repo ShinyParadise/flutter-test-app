@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 import 'second_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+  FlutterBranchSdk.validateSDKIntegration();
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
