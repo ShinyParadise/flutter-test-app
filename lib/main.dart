@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:flutter_test_app/deeplink.dart';
 
 import 'second_screen.dart';
 
 void main() {
   runApp(const MyApp());
-  FlutterBranchSdk.validateSDKIntegration();
 }
 
 class MyApp extends StatelessWidget {
@@ -27,6 +26,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    listenDeepLinkData(context);
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(title),
