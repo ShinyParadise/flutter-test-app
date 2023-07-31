@@ -11,7 +11,7 @@ void listenDeepLinkData(BuildContext context) async {
           context,
           CupertinoPageRoute(
               builder: (context) => AnotherScreen(
-                    title: data["\$marketing_title"],
+                    title: data["custom_string"],
                   )));
     }
   }, onError: (error) {
